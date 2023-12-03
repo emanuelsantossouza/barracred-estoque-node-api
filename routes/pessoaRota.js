@@ -1,4 +1,4 @@
-const servidor = require('../index');
+const servidor = require('express').Router();
 const pessoaService = require('../models/PessoaService');
 
 servidor.get('/pessoa', async (req, res) => {
