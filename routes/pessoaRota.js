@@ -1,13 +1,13 @@
 const servidor = require('../index');
-const pessoaService = require('../models/PessoaService');
+const pessoaService = require('../src/models/PessoaService');
 
 servidor.get('/pessoas', async (req, res) => {
     let json = { error: '', result: [] }
 
     try {
-        const buscarPessoas = await pessoaService.buscarTodos();    
+        const buscarPessoas = await pessoaService.buscarTodos();
 
-        for (let i; i < buscarPessoas.length; i++){
+        for (let i; i < buscarPessoas.length; i++) {
             json.result.push({
                 id: buscarPessoas[i].id,
                 nomeCompletoPessoa: buscarPessoas[i].nomeCompletoPessoa,

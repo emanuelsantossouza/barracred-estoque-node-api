@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const PessoaController = require('../controller/PessoaController');
+const PessoaController = require('../src/controller/PessoaController');
 
 router.get('/pessoas', PessoaController.buscarTodos);
 router.get('/pessoa/:pessoaId', PessoaController.buscarUm);
