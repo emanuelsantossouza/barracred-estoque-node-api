@@ -29,3 +29,5 @@ servidor.get('/pessoa', async (req, res) => {
         return res.status(500);
     };
 })
+
+module.exports = servidor;
