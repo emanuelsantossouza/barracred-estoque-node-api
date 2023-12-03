@@ -1,12 +1,16 @@
-const express = require('express');
-const router = express.Router();
+//routing for local development server (devServer.js)
 
-const PessoaController = require('../src/controller/PessoaController');
+const routes = require("express").Router();
 
-router.get('/pessoas', PessoaController.buscarTodos);
-router.get('/pessoa/:pessoaId', PessoaController.buscarUm);
-router.post('/pessoa', PessoaController.cadastrarUsuario);
-router.put('/pessoa/:pessoaId', PessoaController.editarUsuario);
-router.delete('/pessoa/:pessoaId', PessoaController.excluirUsuario);
+const pessoas = require("./pessoaRota");
 
-module.exports = router;  
+routes.get("/", async function (req, res) {
+    //homepage route returns some HTML
+    res.send(`<h1>Reached home!</h1> 
+            <br>
+            <a href='/carros'>Carros</a>`);
+});
+
+routes.use("/", pessoas);
+
+module.exports = routes;
