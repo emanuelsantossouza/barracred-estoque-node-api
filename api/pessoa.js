@@ -1,5 +1,6 @@
 const servidor = require('../index');
-const route = require('../routes/route');
+const route = require('../routes/route.js');
 
-servidor.get('/pessoa', route);
-servidor.post('/pessoa', route);
+servidor.use("/api", route);
+
+module.exports = servidor;
