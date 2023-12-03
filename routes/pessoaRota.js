@@ -22,7 +22,9 @@ servidor.get('/pessoa', async (req, res) => {
                 // senha: buscarPessoas[i].senha
             });
         }
-        return res.status(200);
+        
+        res.status(200);
+        return res.json(json);
     } catch (error) {
         json.error = error;
         console.log(error);
