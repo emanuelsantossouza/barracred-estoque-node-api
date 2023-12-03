@@ -24,7 +24,7 @@ servidor.get('/pessoa', async (req, res) => {
         }
         
         res.status(200);
-        return res.json(json);
+        return res.json(json.result);
     } catch (error) {
         json.error = error;
         console.log(error);
