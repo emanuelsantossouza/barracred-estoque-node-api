@@ -12,10 +12,5 @@ server.use(bodyParser.urlencoded({ extended: false }));
 
 server.use("/api", routes);
 
-server.get("/", (req, res) => {
-    res.send("Bem vindo a API Barracred Estoque");
-});
 
-server.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT}`);
-});
+module.exports = server;
