@@ -1,7 +1,7 @@
 const servidor = require('../index');
 const pessoaService = require('../models/PessoaService');
 
-servidor.get('/pessoas', async (req, res) => {
+servidor.get('/pessoa', async (req, res) => {
     let json = { error: '', result: [] }
 
     try {

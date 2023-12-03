@@ -2,7 +2,7 @@
 
 const routes = require("express").Router();
 
-const pessoas = require("./pessoaRota");
+const pessoa = require("./pessoaRota");
 
 routes.get("/", async function (req, res) {
     //homepage route returns some HTML
@@ -11,6 +11,6 @@ routes.get("/", async function (req, res) {
             <a href='/carros'>Carros</a>`);
 });
 
-routes.use("/", pessoas);
+routes.use("/", pessoa);
 
 module.exports = routes;
