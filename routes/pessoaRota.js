@@ -1,6 +1,8 @@
 const servidor = require('express').Router();
 const pessoaService = require('../models/PessoaService');
 
+
+
 servidor.get('/pessoa', async (req, res) => {
     let json = { error: '', result: [] }
 
@@ -20,12 +22,10 @@ servidor.get('/pessoa', async (req, res) => {
                 // senha: buscarPessoas[i].senha
             });
         }
-        res.status(200);
+        return res.status(200);
     } catch (error) {
         json.error = error;
-        res.status(500);
         console.log(error);
+        return res.status(500);
     };
-
-    res.json(json);
 })
