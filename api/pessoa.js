@@ -1,5 +1,5 @@
-const servidor = require('../src/index');
-const pessoaRota = require('../src/routes/pessoaRota');
+const servidor = require('../index');
+const pessoaRota = require('../routes/pessoaRota');
 
 ervidor.get('/pessoas', pessoaRota);
 servidor.post('/pessoa', pessoaRota);
