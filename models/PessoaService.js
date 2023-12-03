@@ -4,7 +4,7 @@ module.exports = {
     buscarTodos: () => {
         return new Promise((aceito, rejeito) => {
 
-            db.query('SELECT *FROM pessoas', (error, results) => {
+            db.query('SELECT *FROM carros', (error, results) => {
                 if (error) { rejeito(error); return; }
                 aceito(results);
             });
