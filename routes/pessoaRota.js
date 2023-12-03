@@ -11,7 +11,7 @@ servidor.get('/pessoas', async (req, res) => {
             json.result.push({
                 codigo: buscarPessoas[i].codigo,
                 modelo: buscarPessoas[i].modelo,
-                plata: buscarPessoas[i].plata,
+                placa: buscarPessoas[i].placa,
                 // id: buscarPessoas[i].id,
                 // nomeCompletoPessoa: buscarPessoas[i].nomeCompletoPessoa,
                 // contato: buscarPessoas[i].contato,
