@@ -1,4 +1,4 @@
-const servidor = require('../index');
+const servidor = require('../app');
 const route = require('../routes/route.js');
 
 servidor.use("/api", route);
