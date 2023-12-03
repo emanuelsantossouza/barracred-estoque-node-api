@@ -1,10 +1,11 @@
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require("body-parser"); // converso de formatos
-const server = express();
+const app = express();
+const bodyParser = require('body-parser');
 
-server.use(cors());
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: false }));
 
-module.exports = server;
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+module.exports = app;
