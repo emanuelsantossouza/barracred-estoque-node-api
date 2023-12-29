@@ -57,7 +57,7 @@ module.exports = {
 
     cadastrarUsuario: async (req, res) => {
         console.log("entrou aquii");
-        
+
         console.log(req.body);
         let json = { error: '', resultado: {} }
 
@@ -71,7 +71,7 @@ module.exports = {
         console.log(nomeCompleto, contato, cargo, email, senha);
 
         if (nomeCompleto && contato && cargo && email && senha && confirmarSenha) {
-            
+
             let pessoaId = await PessoaService.cadastrarUsuario(nomeCompleto, contato, cargo, email, senha);
             json.resultado = {
                 id: pessoaId,

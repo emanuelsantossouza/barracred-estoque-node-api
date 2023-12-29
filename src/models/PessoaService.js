@@ -1,6 +1,7 @@
-const db = require('../db');
+const db = require('../../db');
 
 module.exports = {
+
     buscarTodos: () => {
         return new Promise((aceito, rejeito) => {
 
