@@ -26,31 +26,56 @@ module.exports = {
         console.log(pessoaId);
         let pessoa = await PessoaService.buscarUm(pessoaId);
 
-        if (pessoa) {
+        if (pessoa != false) {
             json.resultado = pessoa;
+            res.status(200);
         } else {
-            console.log('Pessoa não encontrada');
+            json.erro = 'Pessoa não encontrada, Id Invalido';
+            res.status(500);
+        }
+        res.json(json);
+    },
+
+    buscarPorEmail: async (req, res) => {
+        let json = { error: '', resultado: {} };
+
+        let pessoaEmail = req.params.pessoaEmail;
+        console.log(pessoaEmail);
+
+        let pessoa = await PessoaService.buscarPessoaEmail(pessoaEmail);
+        console.log(pessoa);
+
+        if (pessoa != false) {
+            json.resultado = pessoa;
+            res.status(200);
+        } else {
+            json.error = 'Pessoa não encontrada, Email Invalido';
             res.status(404);
         }
-
         res.json(json);
-        res.status(200);
     },
 
     cadastrarUsuario: async (req, res) => {
+        console.log("entrou aquii");
+        
+        console.log(req.body);
         let json = { error: '', resultado: {} }
 
-        let nomeCompletoPessoa = req.body.nomeCompletoPessoa;
+        let nomeCompleto = req.body.nomeCompleto;
         let contato = req.body.contato;
         let cargo = req.body.cargo;
         let email = req.body.email;
         let senha = req.body.senha;
+        let confirmarSenha = req.body.confirmarSenha;
 
-        if (nomeCompletoPessoa && contato && cargo && email && senha) {
-            let pessoaId = await PessoaService.cadastrarUsuario(nomeCompletoPessoa, contato, cargo, email, senha);
+        console.log(nomeCompleto, contato, cargo, email, senha);
+
+        if (nomeCompleto && contato && cargo && email && senha && confirmarSenha) {
+            
+            let pessoaId = await PessoaService.cadastrarUsuario(nomeCompleto, contato, cargo, email, senha);
             json.resultado = {
                 id: pessoaId,
-                nomeCompletoPessoa,
+                nomeCompleto,
                 contato,
                 cargo,
                 email,
@@ -92,7 +117,7 @@ module.exports = {
     excluirUsuario: async (req, res) => {
         let json = { error: '', resultado: {} }
         await PessoaService.excluirUsuario(req.params.pessoaId);
-     
+
         res.json(json);
         res.status(200);
     }

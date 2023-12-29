@@ -7,6 +7,8 @@ const bodyParser = require("body-parser"); // converso de formatos
 const routes = require("./routes/route");
 
 const server = express();
+server.use(express.json());
+server.use(bodyParser.json());
 server.use(cors());
 server.use(bodyParser.urlencoded({ extended: false }));
 

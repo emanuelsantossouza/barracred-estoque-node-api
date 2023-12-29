@@ -6,7 +6,11 @@ module.exports = {
 
             db.query('SELECT *FROM pessoas', (error, results) => {
                 if (error) { rejeito(error); return; }
-                aceito(results);
+                if (results.length > 0)
+                    aceito(results);
+                else {
+                    aceito(false);
+                }
             });
         });
     },
@@ -14,9 +18,22 @@ module.exports = {
     buscarUm: (pessoaId) => {
         return new Promise((aceito, reijeto) => {
             db.query('SELECT *FROM pessoas WHERE id=?', [pessoaId], (error, results) => {
-                if (error) { rejeito(error); return; }
+                if (error) { reijeto(error); return; }
+                if (results)
+                    aceito(results);
+                else {
+                    aceito(false);
+                }
+            });
+        });
+    },
+
+    buscarPessoaEmail: (pessoaEmail) => {
+        return new Promise((aceito, reijeito) => {
+            db.query('SELECT *FROM pessoas WHERE email=?', [pessoaEmail], (error, results) => {
+                if (error) { reijeito(error); return; }
                 if (results.length > 0)
-                    aceito(results[0]);
+                    aceito(results);
                 else {
                     aceito(false);
                 }
