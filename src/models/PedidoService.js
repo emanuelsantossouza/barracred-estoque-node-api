@@ -28,10 +28,10 @@ module.exports = {
     },
 
 
-    cadastrarPedido: (nomeProduto, descricaoPedido, quantidade, status, nivelUrgencia, qualPredio, qualData, novoProduto, produtoPadrao, ) => {
+    cadastrarPedido: (descricaoPedido, funcionarioId, produtoId, nivelUrgencia, qualPredio, qualData, novoProduto, produtoPadrao, quantidade) => {
         return new Promise((aceito, rejeito) => {
-            db.query('INSERT INTO pedidos (nomeProduto, descricaoPedido, preco, quantidade) VALUES (?, ?, ?, ?)',
-                [nomeProduto, descricaoPedido, quantidade, status, nivelUrgencia, qualPredio, qualData, novoProduto,produtoPadrao,  preco, quantidade], (error, results) => {
+            db.query('INSERT INTO pedidos (descricaoPedido, funcionarioId, produtoId, nivelUrgencia, qualPredio, qualData, novoProduto, produtoPadrao, quantasUnidades) VALUES (?, ?, ?, ?, ? ,? ,? ,? ,?)',
+                [descricaoPedido, funcionarioId, produtoId, nivelUrgencia, qualPredio, qualData, novoProduto,produtoPadrao, quantidade], (error, results) => {
                     if (error) { rejeito(error); return; }
                     aceito(results.insertId);
                 }

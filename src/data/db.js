@@ -9,15 +9,6 @@ const connection = mysql.createConnection({
     uri: process.env.DB_URL,
 });
 
-
-connection.query('SELECT *FROM carros', (error, resultados) => {
-    if (error) throw error;
-    console.log(resultados);
-
-    console.log('Realizpou a consulta no banco de dados');
-})
-
-
 connection.connect((err) => {
     if (err) { throw err; }
     console.log(`Conectado ao banco de dados! com sucesso!\nAo banco ${process.env.DB_NAME}`);

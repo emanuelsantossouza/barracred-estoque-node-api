@@ -2,7 +2,7 @@ const PedidoService = require('../models/PedidoService');
 
 module.exports = {
     buscarTodos: async (req, res) => {
-        let json = { erro: '', resultado: [] };
+        let json = { erro: '', resultado: [], status: 0 };
 
         const pedidos = await PedidoService.buscarTodos();
 
@@ -19,33 +19,71 @@ module.exports = {
                     qualData: pedidos[i].qualData,
                     novoProduto: pedidos[i].novoProduto,
                     produtoPadrao: pedidos[i].produtoPadrao,
+                    produtoId: pedidos[i].produtoId,
+                    funcionarioId: pedidos[i].funcionarioId
                 });
             }
+            json.status = 200;
         } else {
-            res.status(404).json({ erro: 'Nenhum pedido encontrado!' });
+            res.status(404);
             json.erro = 'Nenhum pedido encontrado!';
         }
-        res.json(pedidos);
+        res.json(json);
     },
 
     buscarUm: async (req, res) => {
-        const pedidoId = req.params.id;
-        const pedido = await PedidoService.buscarUm(pedidoId);
 
-        if (pedido)
-            res.json(pedido);
-        else
-            res.status(404).json({ erro: 'Pedido não encontrado!' });
+        let json = { erro: '', resultado: {}, status: 0 };
+        const pedidoId = req.params.id;
+
+        if (pedidoId != undefined || pedidoId != null || pedidoId != '') {
+            json.resultado = await PedidoService.buscarUm(pedidoId);
+
+            if (json.resultado != false) {
+                json.status = 200;
+                res.json(json);
+            }
+            else
+                res.status(404).json({ erro: 'Pedido não encontrado!' });
+            
+        }
     },
 
     cadastarPedido: async (req, res) => {
-        const { id, status, descricaoPedido, motivoPedido, nivelUrgencia, qualPredio, qualData, novoProduto, produtoPadrao, quantasUnidades } = req.body;
-        const pedido = await PedidoService.cadastrarPedido(id, status, descricaoPedido, motivoPedido, nivelUrgencia, qualPredio, qualData, novoProduto, produtoPadrao, quantasUnidades);
 
-        if (pedido)
-            res.json({ mensagem: 'Pedido cadastrado com sucesso!' });
-        else
-            res.status(404).json({ erro: 'Pedido não cadastrado!' });
-        
+        let json = { error: '', resultado: {}, status: 0 };
+
+        let descricaoPedido = req.body.descricaoPedido;
+        let nivelUrgencia = req.body.nivelUrgencia;
+        let quantasUnidades = req.body.quantasUnidades;
+        let produtoPadrao = req.body.produtoPadrao;
+        let novoProduto = req.body.novoProduto;
+        let qualPredio = req.body.qualPredio;
+        let qualData = req.body.qualData;
+        let produtoId = req.body.produtoId;
+        let funcionarioId = req.body.funcionarioId;
+
+        if (descricaoPedido, funcionarioId, produtoId, nivelUrgencia, qualPredio, qualData, novoProduto, produtoPadrao, quantasUnidades) {
+
+            let pedidoId = await PedidoService.cadastrarPedido(descricaoPedido, funcionarioId, produtoId, nivelUrgencia, qualPredio, qualData, novoProduto, produtoPadrao, quantasUnidades);
+            json.resultado = {
+                id: pedidoId,
+                descricaoPedido,
+                nivelUrgencia,
+                qualPredio,
+                qualData,
+                novoProduto,
+                produtoPadrao,
+                quantasUnidades,
+                funcionarioId,
+                produtoId
+            };
+            json.status = 201;
+            res.status(201);
+        } else {
+            res.status(400).json({ erro: 'Pedido não cadastrado, Verifique os dados enviados' });
+        }
+
+        res.json(json);
     }
 }

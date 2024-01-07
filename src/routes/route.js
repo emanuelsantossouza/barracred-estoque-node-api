@@ -4,16 +4,7 @@ const router = express.Router();
 const PessoaController = require('../controller/PessoaController');
 const PedidoController = require('../controller/PedidoController');
 const ProdutoController = require('../controller/ProdutoController');
-
-const body = {
-    cargo: 0,
-    contato: '',
-    email: '',
-    id: 0,
-    nomeCompleto: '',
-    senha: '',
-    confirmarSenha: '',
-}
+const FuncionarioController = require('../controller/FuncionarioController');
 
 
 // Pessoa Ou usuario
@@ -31,7 +22,14 @@ router.post('/pedido', PedidoController.cadastarPedido);
 
 // Produto
 router.get('/produtos', ProdutoController.buscarTodos);
-// router.get('/produto/:id', ProdutoController.buscarTodos());
-// router.post('/produto', ProdutoController.buscarTodos());
+router.get('/produto/id/:produtoId', ProdutoController.buscarUm);
+router.get('/produto/unidades/:unidadesEstoque', ProdutoController.buscarProdutoUnidadeNoEstoque);
+router.get('/produto/categoria/:categoriaProduto', ProdutoController.buscarProdutoCategoria);
+router.get('/produto/nome/:nomeProduto', ProdutoController.buscarProdutoNome);
+router.post('/produto', ProdutoController.cadastrarProduto);
+
+// Funcionario
+router.get('/funcionarios', FuncionarioController.buscarTodosFuncionarios);
+router.post('/funcionario', FuncionarioController.cadastrarFuncionario);
 
 module.exports = router;  
