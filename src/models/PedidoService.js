@@ -31,11 +31,20 @@ module.exports = {
     cadastrarPedido: (descricaoPedido, funcionarioId, produtoId, nivelUrgencia, qualPredio, qualData, novoProduto, produtoPadrao, quantidade) => {
         return new Promise((aceito, rejeito) => {
             db.query('INSERT INTO pedidos (descricaoPedido, funcionarioId, produtoId, nivelUrgencia, qualPredio, qualData, novoProduto, produtoPadrao, quantasUnidades) VALUES (?, ?, ?, ?, ? ,? ,? ,? ,?)',
-                [descricaoPedido, funcionarioId, produtoId, nivelUrgencia, qualPredio, qualData, novoProduto,produtoPadrao, quantidade], (error, results) => {
+                [descricaoPedido, funcionarioId, produtoId, nivelUrgencia, qualPredio, qualData, novoProduto, produtoPadrao, quantidade], (error, results) => {
                     if (error) { rejeito(error); return; }
                     aceito(results.insertId);
                 }
             );
+        });
+    },
+
+    atualizarStatus: (pedidoId, novoStatus) => {
+        return new Promise((aceito, rejeito) => {
+            db.query('UPDATE pedidos SET status=? WHERE id=?', [novoStatus, pedidoId], (error, results) => {
+                if (error) { rejeito(error); return; }
+                aceito(true);
+            });
         });
     }
 }

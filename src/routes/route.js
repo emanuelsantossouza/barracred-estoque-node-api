@@ -19,6 +19,7 @@ router.delete('/pessoa/:pessoaId', PessoaController.excluirUsuario);
 router.get('/pedidos', PedidoController.buscarTodos);
 router.get('/pedido/:id', PedidoController.buscarUm);
 router.post('/pedido', PedidoController.cadastarPedido);
+router.put('/pedido/atualizar/status/:id', PedidoController.atualizarStatus)
 
 // Produto
 router.get('/produtos', ProdutoController.buscarTodos);

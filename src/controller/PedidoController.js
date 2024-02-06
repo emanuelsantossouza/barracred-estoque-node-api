@@ -12,7 +12,7 @@ module.exports = {
                     id: pedidos[i].id,
                     status: pedidos[i].status,
                     descricaoPedido: pedidos[i].descricao,
-                    quantasUnidades: pedidos[i].quantidade,
+                    quantasUnidades: pedidos[i].quantasUnidades,
                     motivoPedido: pedidos[i].motivo,
                     nivelUrgencia: pedidos[i].nivelUrgencia,
                     qualPredio: pedidos[i].qualPredio,
@@ -45,7 +45,7 @@ module.exports = {
             }
             else
                 res.status(404).json({ erro: 'Pedido não encontrado!' });
-            
+
         }
     },
 
@@ -82,6 +82,33 @@ module.exports = {
             res.status(201);
         } else {
             res.status(400).json({ erro: 'Pedido não cadastrado, Verifique os dados enviados' });
+        }
+
+        res.json(json);
+    },
+
+    atualizarStatus: async (req, res) => {
+        let json = { erro: '', resultado: {}, status: 0 };
+        const pedidoId = req.params.id;
+        const novoStatus = req.body.status;
+
+        if (pedidoId != undefined || pedidoId != null || pedidoId != '') {
+            json.resultado = await PedidoService.atualizarStatus(pedidoId, novoStatus);
+           
+          
+                console.log(json.resultado);
+                if (json.resultado == true) {
+                    json = {
+                        status: 200,
+                        resultado: { id: pedidoId, status: novoStatus },
+                        erro: ''
+                    }
+                }
+                else {
+                    json.status(404)
+                    json.erro({ erro: 'Pedido não alterado!' });
+                }
+          
         }
 
         res.json(json);
